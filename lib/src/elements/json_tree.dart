@@ -35,12 +35,14 @@ class JSONTree {
     } else if (decoded is List<dynamic>) {
       return JSONTree.fromElement(JSONArray.fromJson(decoded));
     } else {
-      throw FormatException('Invalid JSON format: Root must be an object or an array.');
+      throw FormatException(
+          'Invalid JSON format: Root must be an object or an array.');
     }
   }
 
   /// Private constructor to create a JSONTree from an already built JSONElement.
-  JSONTree.fromElement(JSONElement element) : initialType = (element is JSONObject) ? JETypes.object : JETypes.array {
+  JSONTree.fromElement(JSONElement element)
+      : initialType = (element is JSONObject) ? JETypes.object : JETypes.array {
     _root = element;
   }
 

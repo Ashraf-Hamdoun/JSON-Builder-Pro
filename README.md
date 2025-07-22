@@ -1,6 +1,6 @@
 # JSON Builder Pro
 
-[![pub version](https://img.shields.io/pub/v/json_builder_pro/1.0.2.svg)](https://pub.dev/packages/json_builder_pro)
+[![pub version](https://img.shields.io/pub/v/json_builder_pro.svg)](https://pub.dev/packages/json_builder_pro)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A powerful and intuitive Dart package for programmatically building, manipulating, and serializing JSON structures using a tree-based, object-oriented approach.
@@ -34,7 +34,7 @@ Add this to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  json_builder_pro: ^1.0.2 # Use the latest version
+  json_builder_pro: ^1.0.3 # Use the latest version
 ```
 
 Then, run `flutter pub get` or `dart pub get`.
