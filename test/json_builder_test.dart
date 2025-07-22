@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:json_builder/json_builder.dart';
+import 'package:json_builder_pro/json_builder_pro.dart';
 
 void main() {
   test('JSONTree can be created and converted to a string', () {

@@ -1,4 +1,4 @@
-export 'src/constants/json_element_types.dart';
+export 'package:json_builder_pro/src/constants/json_element_types.dart';
 export 'src/core/json_element.dart';
 export 'src/elements/data_structures/json_array.dart';
 export 'src/elements/data_structures/json_boolean.dart';
@@ -6,4 +6,4 @@ export 'src/elements/data_structures/json_null.dart';
 export 'src/elements/data_structures/json_number.dart';
 export 'src/elements/data_structures/json_object.dart';
 export 'src/elements/data_structures/json_string.dart';
-export 'src/elements/json_tree.dart';
+export 'package:json_builder_pro/src/elements/json_tree.dart';

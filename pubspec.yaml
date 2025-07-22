@@ -1,9 +1,9 @@
-name: json_builder
+name: json_builder_pro
 description: A powerful and intuitive library for building and manipulating JSON structures in Dart.
 version: 1.0.0
-homepage: https://github.com/Ashraf-Hamdoun/JSON-Builder
-repository: https://github.com/Ashraf-Hamdoun/JSON-Builder.git
-issue_tracker: https://github.com/Ashraf-Hamdoun/JSON-Builder/issues
+homepage: https://github.com/Ashraf-Hamdoun/JSON-Builder-Pro
+repository: https://github.com/Ashraf-Hamdoun/JSON-Builder-Pro.git
+issue_tracker: https://github.com/Ashraf-Hamdoun/JSON-Builder-Pro/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
