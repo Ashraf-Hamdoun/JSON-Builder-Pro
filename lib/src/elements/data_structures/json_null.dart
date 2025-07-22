@@ -5,11 +5,16 @@ import '../../core/json_element.dart';
 class JSONNull extends JSONElement {
   JSONNull();
 
+  /// Creates a [JSONNull] instance.
+  factory JSONNull.fromJson() {
+    return JSONNull();
+  }
+
   @override
   String get getType => JETypes.nullType.name;
 
   @override
-  String toJsonString() {
+  String toJson() {
     return 'null';
   }
 }

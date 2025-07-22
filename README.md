@@ -1,6 +1,6 @@
 # JSON Builder Pro
 
-[![pub version](https://img.shields.io/pub/v/json_builder_pro.svg)](https://pub.dev/packages/json_builder_pro)
+[![pub version](https://img.shields.io/pub/v/json_builder_pro/1.0.2.svg)](https://pub.dev/packages/json_builder_pro)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 A powerful and intuitive Dart package for programmatically building, manipulating, and serializing JSON structures using a tree-based, object-oriented approach.
@@ -14,6 +14,7 @@ Say goodbye to manual `Map<String, dynamic>` manipulation and complex JSON strin
 -   **🔗 Parent-Aware Elements**: Each `JSONElement` is aware of its parent, enabling powerful operations like `removeMySelf()` where an element can remove itself from its parent structure, simplifying complex deletion logic.
 -   **🚀 Pure Dart & Flutter Compatible**: Written in 100% Dart, ensuring seamless integration with any Dart or Flutter project on any platform.
 -   **🔄 Dynamic Structure Manipulation**: Easily add, update, or remove elements at any level of the JSON tree, maintaining structural integrity automatically.
+-   **📥 `fromJson` Constructors**: Effortlessly parse JSON strings or raw Dart `Map`/`List` objects into a `JSONTree` structure, making it simple to load existing JSON data.
 
 ## Core Concept: The JSON Tree
 
@@ -33,117 +34,30 @@ Add this to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  json_builder_pro: ^1.0.1 # Use the latest version
+  json_builder_pro: ^1.0.2 # Use the latest version
 ```
 
 Then, run `flutter pub get` or `dart pub get`.
 
 ## Getting Started
 
-Let's build a simple JSON object: `{"name":"Alice","age":30}`
-
-```dart
-import 'package:json_builder/json_builder.dart';
-
-void main() {
-  // 1. Create a JSON Tree with a root object
-  final tree = JSONTree(initialType: JETypes.object);
-  final rootObject =
-      tree.root as JSONObject; // Cast to JSONObject to use its methods
-
-  // 2. Add primitive elements
-  rootObject.set('name', JSONString('Alice'));
-  rootObject.set('age', JSONNumber(30));
-
-  print('Initial Tree: ${tree.toJsonString()}');
-  // Expected: {"name":"Alice","age":30}
-}
-```
+See the `examples/example.dart` file for a comprehensive example of how to use the library.
 
 ## Advanced Usage
 
-### Building Nested Structures
-
-Let's build a more complex JSON structure with nested objects and arrays:
-
-```dart
-import 'package:json_builder/json_builder.dart';
-
-void main() {
-  final tree = JSONTree(initialType: JETypes.object);
-  final rootObject = tree.root as JSONObject;
-
-  rootObject.set('name', JSONString('Alice'));
-  rootObject.set('age', JSONNumber(30));
-
-  // Add an array of hobbies
-  final hobbies = JSONArray();
-  hobbies.add(JSONString('reading'));
-  hobbies.add(JSONString('coding'));
-  rootObject.set('hobbies', hobbies);
-
-  // Add a nested contact object
-  final contact = JSONObject();
-  contact.set('email', JSONString('alice@example.com'));
-  contact.set('phone', JSONString('123-456-7890'));
-  rootObject.set('contact', contact);
-
-  print('Complex Tree: ${tree.toJsonString()}');
-  // Expected: {"name":"Alice","age":30,"hobbies":["reading","coding"],"contact":{"email":"alice@example.com","phone":"123-456-7890"}}
-}
-```
-
-### Using `removeMySelf()`
-
-The `removeMySelf()` method allows any `JSONElement` to remove itself from its parent, simplifying deletion logic, especially in complex, deeply nested structures.
-
-```dart
-import 'package:json_builder/json_builder.dart';
-
-void main() {
-  final tree = JSONTree(initialType: JETypes.object);
-  final rootObject = tree.root as JSONObject;
-
-  rootObject.set('name', JSONString('Alice'));
-  rootObject.set('age', JSONNumber(30));
-
-  final hobbies = JSONArray();
-  hobbies.add(JSONString('reading'));
-  hobbies.add(JSONString('coding'));
-  rootObject.set('hobbies', hobbies);
-
-  // Get a reference to the 'age' element
-  final ageElement = rootObject.get('age');
-  print('Tree before removal: ${tree.toJsonString()}');
-
-  // Remove 'age' using removeMySelf()
-  final wasRemoved = ageElement?.removeMySelf();
-  print('Age element removed: $wasRemoved'); // Should be true
-  print('Tree after removal: ${tree.toJsonString()}');
-  // Expected: {"name":"Alice","hobbies":["reading","coding"]}
-
-  // Get a reference to 'coding' from the hobbies array
-  final codingElement = (hobbies.elements[1] as JSONString);
-  print('Tree before removing coding: ${tree.toJsonString()}');
-
-  // Remove 'coding' using removeMySelf()
-  final wasCodingRemoved = codingElement.removeMySelf();
-  print('Coding element removed: $wasCodingRemoved'); // Should be true
-  print('Tree after removing coding: ${tree.toJsonString()}');
-  // Expected: {"name":"Alice","hobbies":["reading"]}
-}
-```
+See the `examples/example.dart` file for advanced usage examples, including building nested structures and using `removeMySelf()`.
 
 ## API Reference
 
 -   **`JSONTree`**: The main entry point for building a JSON structure.
     -   `JSONTree({required JETypes initialType})`: Constructor to initialize the tree with a root object or array.
+    -   `factory JSONTree.fromJson(String jsonString)`: Creates a `JSONTree` from a JSON string.
     -   `JSONElement get root`: Gets the root `JSONElement` of the tree.
-    -   `String toJsonString()`: Converts the entire tree to its JSON string representation.
+    -   `String toJson()`: Converts the entire tree to its JSON string representation.
 
 -   **`JSONElement`**: Abstract base class for all JSON types.
     -   `String get getType`: Returns the type of the JSON element (e.g., 'object', 'array', 'string').
-    -   `String toJsonString()`: Converts the element to its JSON string representation.
+    -   `String toJson()`: Converts the element to its JSON string representation.
     -   `bool removeMySelf()`: Attempts to remove this element from its parent. Returns `true` if successful.
 
 -   **`JSONObject`**: Represents a JSON object.

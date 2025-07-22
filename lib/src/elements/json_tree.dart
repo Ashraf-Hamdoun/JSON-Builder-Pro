@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../constants/json_element_types.dart';
 import '../core/json_element.dart';
 import 'data_structures/json_array.dart';
@@ -23,9 +25,28 @@ class JSONTree {
     }
   }
 
+  /// Creates a [JSONTree] from a JSON string.
+  /// The root of the tree will be either a [JSONObject] or a [JSONArray]
+  /// depending on the parsed JSON.
+  factory JSONTree.fromJson(String jsonString) {
+    final decoded = jsonDecode(jsonString);
+    if (decoded is Map<String, dynamic>) {
+      return JSONTree.fromElement(JSONObject.fromJson(decoded));
+    } else if (decoded is List<dynamic>) {
+      return JSONTree.fromElement(JSONArray.fromJson(decoded));
+    } else {
+      throw FormatException('Invalid JSON format: Root must be an object or an array.');
+    }
+  }
+
+  /// Private constructor to create a JSONTree from an already built JSONElement.
+  JSONTree.fromElement(JSONElement element) : initialType = (element is JSONObject) ? JETypes.object : JETypes.array {
+    _root = element;
+  }
+
   /// Converts the entire JSON tree to its JSON string representation.
-  String toJsonString() {
-    return _root.toJsonString();
+  String toJson() {
+    return _root.toJson();
   }
 
   // Example of a method to set a new root for the tree (less common but possible)

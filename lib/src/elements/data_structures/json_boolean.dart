@@ -7,11 +7,16 @@ class JSONBoolean extends JSONElement {
 
   JSONBoolean(this.value);
 
+  /// Creates a [JSONBoolean] from a raw Dart [bool].
+  factory JSONBoolean.fromJson(bool value) {
+    return JSONBoolean(value);
+  }
+
   @override
   String get getType => JETypes.boolean.name;
 
   @override
-  String toJsonString() {
+  String toJson() {
     return value.toString();
   }
 }

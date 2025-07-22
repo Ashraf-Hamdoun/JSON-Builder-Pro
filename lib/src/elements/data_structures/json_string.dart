@@ -7,12 +7,23 @@ class JSONString extends JSONElement {
 
   JSONString(this.value);
 
+  /// Creates a [JSONString] from a raw Dart [String].
+  factory JSONString.fromJson(String value) {
+    return JSONString(value);
+  }
+
   @override
   String get getType => JETypes.string.name;
 
   @override
-  String toJsonString() {
+  String toJson() {
     // Escape special characters within the string for valid JSON.
-    return '"${value.replaceAll('\\', '\\\\').replaceAll('"', '\\"').replaceAll('\n', '\\n').replaceAll('\r', '\\r').replaceAll('\t', '\\t')}"';
+    final escapedValue = value
+        .replaceAll('\\', '\\') // Escape backslashes
+        .replaceAll('"', '"') // Escape double quotes
+        .replaceAll('\n', '\n') // Escape newlines
+        .replaceAll('\r', '\r') // Escape carriage returns
+        .replaceAll('\t', '\t'); // Escape tabs
+    return '"$escapedValue"';
   }
 }

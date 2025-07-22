@@ -1,5 +1,6 @@
 import '../../constants/json_element_types.dart';
 import '../../core/json_element.dart';
+import '../../core/json_element_builder.dart';
 
 /// Represents a JSON object.
 class JSONObject extends JSONElement {
@@ -19,19 +20,29 @@ class JSONObject extends JSONElement {
     }
   }
 
+  /// Creates a [JSONObject] from a raw Dart [Map].
+  /// This is a factory constructor to allow for recursive creation of JSON elements.
+  factory JSONObject.fromJson(Map<String, dynamic> jsonMap) {
+    final object = JSONObject();
+    jsonMap.forEach((key, value) {
+      object.set(key, buildJsonElement(value));
+    });
+    return object;
+  }
+
   Map<String, JSONElement> get members => _members;
 
   @override
   String get getType => JETypes.object.name;
 
   @override
-  String toJsonString() {
+  String toJson() {
     final buffer = StringBuffer('{');
     int i = 0;
     _members.forEach((key, value) {
-      buffer.write('"${key.replaceAll('"', '\\"')}"');
+      buffer.write('"${key.replaceAll('"', '"')}"');
       buffer.write(':');
-      buffer.write(value.toJsonString());
+      buffer.write(value.toJson());
       if (i < _members.length - 1) {
         buffer.write(',');
       }

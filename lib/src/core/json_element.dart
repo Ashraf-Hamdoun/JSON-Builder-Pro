@@ -19,7 +19,7 @@ abstract class JSONElement {
   String get getType;
 
   /// Converts the JSON element to its JSON string representation.
-  String toJsonString();
+  String toJson();
 
   /// Attempts to remove this element from its parent.
   /// Returns `true` if the removal was successful, `false` otherwise (e.g., no parent, or parent couldn't remove it).

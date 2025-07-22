@@ -1,5 +1,6 @@
 import '../../constants/json_element_types.dart';
 import '../../core/json_element.dart';
+import '../../core/json_element_builder.dart';
 
 /// Represents a JSON array.
 class JSONArray extends JSONElement {
@@ -7,8 +8,10 @@ class JSONArray extends JSONElement {
 
   // Constructor now takes an optional parentRemover and passes it up.
   // It also ensures initial elements are aware of THIS JSONArray as their parent.
-  JSONArray([List<JSONElement>? initialElements, ParentRemover? parentRemover])
-      : _elements = [], // Initialize _elements first
+  JSONArray([
+    List<JSONElement>? initialElements,
+    ParentRemover? parentRemover,
+  ])  : _elements = [], // Initialize _elements first
         super(parentRemover) {
     if (initialElements != null) {
       for (var element in initialElements) {
@@ -17,16 +20,26 @@ class JSONArray extends JSONElement {
     }
   }
 
+  /// Creates a [JSONArray] from a raw Dart [List].
+  /// This is a factory constructor to allow for recursive creation of JSON elements.
+  factory JSONArray.fromJson(List<dynamic> jsonList) {
+    final array = JSONArray();
+    for (var element in jsonList) {
+      array.add(buildJsonElement(element));
+    }
+    return array;
+  }
+
   List<JSONElement> get elements => _elements;
 
   @override
   String get getType => JETypes.array.name;
 
   @override
-  String toJsonString() {
+  String toJson() {
     final buffer = StringBuffer('[');
     for (int i = 0; i < _elements.length; i++) {
-      buffer.write(_elements[i].toJsonString());
+      buffer.write(_elements[i].toJson());
       if (i < _elements.length - 1) {
         buffer.write(',');
       }

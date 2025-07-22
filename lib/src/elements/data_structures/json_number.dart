@@ -7,11 +7,16 @@ class JSONNumber extends JSONElement {
 
   JSONNumber(this.value);
 
+  /// Creates a [JSONNumber] from a raw Dart [num].
+  factory JSONNumber.fromJson(num value) {
+    return JSONNumber(value);
+  }
+
   @override
   String get getType => JETypes.number.name;
 
   @override
-  String toJsonString() {
+  String toJson() {
     return value.toString();
   }
 }
