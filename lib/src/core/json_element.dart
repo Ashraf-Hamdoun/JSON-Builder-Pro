@@ -1,40 +1,56 @@
-// Define the type for the parent removal callback
-// This function takes a JSONElement (the child to remove) as an argument
-// and returns true if successful, false otherwise.
-typedef ParentRemover = bool Function(JSONElement childToRemove);
+import 'json_node.dart';
 
-/// Abstract base class for all JSON elements.
-/// Provides a common interface for getting the type, converting to a JSON string,
-/// and allowing an element to request removal from its parent.
+/// The base class for all JSON elements, both nodes and leaves.
+///
+/// It defines the common interface for all elements in the JSON tree,
+/// including a unique [id], a reference to the [parent] node, and support for
+/// caching the JSON string representation to avoid unnecessary re-computation.
+///
+/// The [isDirty] flag is used to track whether the cached JSON string is
+/// up-to-date. When an element is modified, it and its ancestors are marked as
+/// dirty, indicating that their JSON representation needs to be recomputed.
+/// This ensures that the tree is always in a consistent state.
 abstract class JSONElement {
-  /// The callback function provided by the parent to allow this element to remove itself.
-  /// This will be null for the root element of a JSONTree or if not attached to a parent.
-  ParentRemover? _parentRemover;
+  final String id;
+  final JSONNode? parent;
 
-  /// Private constructor to accept the parent remover.
-  /// Subclasses will call super(parentRemover) to pass it up.
-  JSONElement([this._parentRemover]);
+  bool isDirty = true;
+  String _cachedJSONString = "";
 
-  /// Returns the string representation of the JSON element's type.
+  JSONElement({required this.id, required this.parent});
+
+  /// Returns the type of the element, used for identification and debugging.
   String get getType;
 
-  /// Converts the JSON element to its JSON string representation.
-  String toJson();
+  /// Returns a string with information about the element, including its type and ID.
+  String get info => "$getType id: $id (value: ${toJsonString()})";
 
-  /// Attempts to remove this element from its parent.
-  /// Returns `true` if the removal was successful, `false` otherwise (e.g., no parent, or parent couldn't remove it).
-  bool removeMySelf() {
-    if (_parentRemover != null) {
-      return _parentRemover!(
-        this,
-      ); // Call the parent's removal function, passing 'this' element
+  /// Computes the JSON string for the element.
+  ///
+  /// This method is called by [toJsonString] when the element is dirty.
+  /// Subclasses must implement this method to define their JSON representation.
+  String computeJSONString();
+
+  /// Returns the JSON string for the element, using a cached value if available.
+  ///
+  /// If the element is dirty, it recomputes the string and updates the cache.
+  /// This ensures that the JSON string is only computed when necessary.
+  String toJsonString() {
+    if (isDirty) {
+      _cachedJSONString = computeJSONString();
+      isDirty = false;
     }
-    return false; // No parent remover means it cannot remove itself
+    return _cachedJSONString;
   }
 
-  /// Sets the parent remover for this element. This is primarily for internal use
-  /// by parent elements when adding children.
-  void setParentRemover(ParentRemover? remover) {
-    _parentRemover = remover;
+  /// Marks the element and its ancestors as dirty.
+  ///
+  /// When an element is modified, this method is called to ensure that the
+  /// entire branch of the tree is updated.
+  void setDirty() {
+    if (!isDirty) {
+      isDirty = true;
+      parent?.setDirty();
+    }
   }
 }
