@@ -67,7 +67,9 @@ class JSONInputController {
   /// Adds a string property to the current object node.
   void addStringProperty(String key, String value) {
     final leaf = leavesGenerator(
-        parent: _jsonTree.activeParent, type: JEType.stringLeaf, content: value);
+        parent: _jsonTree.activeParent,
+        type: JEType.stringLeaf,
+        content: value);
     _jsonTree.addKeyValuePair(key, leaf);
     _notifyListeners();
   }
@@ -75,7 +77,9 @@ class JSONInputController {
   /// Adds a number property to the current object node.
   void addNumberProperty(String key, double value) {
     final leaf = leavesGenerator(
-        parent: _jsonTree.activeParent, type: JEType.numberLeaf, content: value.toString());
+        parent: _jsonTree.activeParent,
+        type: JEType.numberLeaf,
+        content: value.toString());
     _jsonTree.addKeyValuePair(key, leaf);
     _notifyListeners();
   }
@@ -83,7 +87,9 @@ class JSONInputController {
   /// Adds a boolean property to the current object node.
   void addBooleanProperty(String key, bool value) {
     final leaf = leavesGenerator(
-        parent: _jsonTree.activeParent, type: JEType.booleanLeaf, content: value.toString());
+        parent: _jsonTree.activeParent,
+        type: JEType.booleanLeaf,
+        content: value.toString());
     _jsonTree.addKeyValuePair(key, leaf);
     _notifyListeners();
   }

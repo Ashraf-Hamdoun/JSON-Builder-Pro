@@ -26,7 +26,8 @@ void main() {
       controller.addStringProperty('zip', '12345');
       controller.up(); // Exit 'address' object
 
-      final expectedJson = '{"name":"John Doe","age":30,"isStudent":false,"courses":["Math","Science"],"address":{"street":"123 Main St","city":"Anytown","zip":"12345"}}';
+      final expectedJson =
+          '{"name":"John Doe","age":30,"isStudent":false,"courses":["Math","Science"],"address":{"street":"123 Main St","city":"Anytown","zip":"12345"}}';
       print('Generated JSON: ${jsonTree.toJsonString()}');
       expect(jsonTree.toJsonString(), expectedJson);
     });
@@ -42,7 +43,8 @@ void main() {
 
   group('JSONTree - fromJson', () {
     test('can parse a simple JSON object', () {
-      final jsonString = '{"name":"Test","value":123,"active":true,"data":null}';
+      final jsonString =
+          '{"name":"Test","value":123,"active":true,"data":null}';
       final jsonTree = JSONTree.fromJson(jsonString);
       expect(jsonTree.toJsonString(), jsonString);
     });
@@ -54,7 +56,8 @@ void main() {
     });
 
     test('can parse nested JSON objects and arrays', () {
-      final jsonString = '{"user":{"name":"Alice","age":30,"hobbies":["reading","hiking",null]},"products":[{"id":1,"name":"Laptop"},{"id":2,"name":"Mouse"}]}';
+      final jsonString =
+          '{"user":{"name":"Alice","age":30,"hobbies":["reading","hiking",null]},"products":[{"id":1,"name":"Laptop"},{"id":2,"name":"Mouse"}]}';
       final jsonTree = JSONTree.fromJson(jsonString);
       expect(jsonTree.toJsonString(), jsonString);
     });

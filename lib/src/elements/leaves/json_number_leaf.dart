@@ -9,7 +9,7 @@ class JSONNumberLeaf extends JSONLeaf {
     required super.id,
     required super.parent,
     required super.child,
-  })  : numberValue = num.parse(child);
+  }) : numberValue = num.parse(child);
 
   @override
   String get getType => JEType.numberLeaf.name;

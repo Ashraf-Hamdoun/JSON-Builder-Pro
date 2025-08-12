@@ -71,11 +71,15 @@ class JSONTree {
           (parent as JSONObjectNode).set(key, stringLeaf);
         } else if (value is num) {
           final numberLeaf = leavesGenerator(
-              parent: parent, type: JEType.numberLeaf, content: value.toString());
+              parent: parent,
+              type: JEType.numberLeaf,
+              content: value.toString());
           (parent as JSONObjectNode).set(key, numberLeaf);
         } else if (value is bool) {
           final booleanLeaf = leavesGenerator(
-              parent: parent, type: JEType.booleanLeaf, content: value.toString());
+              parent: parent,
+              type: JEType.booleanLeaf,
+              content: value.toString());
           (parent as JSONObjectNode).set(key, booleanLeaf);
         } else if (value == null) {
           final nullLeaf = leavesGenerator(
@@ -103,11 +107,15 @@ class JSONTree {
           (parent as JSONArrayNode).addChildLeaf(stringLeaf);
         } else if (item is num) {
           final numberLeaf = leavesGenerator(
-              parent: parent, type: JEType.numberLeaf, content: item.toString());
+              parent: parent,
+              type: JEType.numberLeaf,
+              content: item.toString());
           (parent as JSONArrayNode).addChildLeaf(numberLeaf);
         } else if (item is bool) {
           final booleanLeaf = leavesGenerator(
-              parent: parent, type: JEType.booleanLeaf, content: item.toString());
+              parent: parent,
+              type: JEType.booleanLeaf,
+              content: item.toString());
           (parent as JSONArrayNode).addChildLeaf(booleanLeaf);
         } else if (item == null) {
           final nullLeaf = leavesGenerator(
@@ -158,8 +166,7 @@ class JSONTree {
       _activeParent = node;
       _activeParent.enterNode();
     } else {
-      throw Exception(
-          'Cannot add a node directly to a non-array/trunk node.');
+      throw Exception('Cannot add a node directly to a non-array/trunk node.');
     }
   }
 
@@ -236,4 +243,3 @@ class JSONTree {
     return oldJson != toJsonString();
   }
 }
-
