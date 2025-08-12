@@ -1,6 +1,5 @@
 import '../constants/json_element_type.dart';
 import 'json_element.dart';
-import 'json_leaf.dart';
 
 /// The base class for all JSON nodes.
 ///

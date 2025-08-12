@@ -8,9 +8,8 @@ class JSONNumberLeaf extends JSONLeaf {
   JSONNumberLeaf({
     required super.id,
     required super.parent,
-    required String child,
-  })  : numberValue = num.parse(child),
-        super(child: child);
+    required super.child,
+  })  : numberValue = num.parse(child);
 
   @override
   String get getType => JEType.numberLeaf.name;

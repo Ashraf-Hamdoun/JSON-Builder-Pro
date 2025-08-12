@@ -1,5 +1,4 @@
 import 'package:json_builder_pro/json_builder_pro.dart';
-import 'package:json_builder_pro/src/core/json_element.dart';
 import 'package:json_builder_pro/src/utiles/leaves_generator.dart';
 import 'package:json_builder_pro/src/utiles/nodes_generator.dart';
 

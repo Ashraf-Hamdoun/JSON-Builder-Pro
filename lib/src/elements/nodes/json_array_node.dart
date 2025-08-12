@@ -36,22 +36,17 @@ class JSONArrayNode extends JSONNode {
       return "[]";
     } else {
       List<String> parts =
-          _children.sublist(1).map((child) => (child as JSONElement).toJsonString()).toList();
+          _children.sublist(1).map((child) => child.toJsonString()).toList();
 
       // Returns
-      return "[" + parts.join(",") + "]";
+      return '[${parts.join(',')}]';
     }
-  }
-
-  /// Adds a child to the node at the current position.
-  void _addInsertChildToLists(JSONElement child) {
-    _children.insert(position + 1, child);
-    _childrenIDs.insert(position + 1, child.id);
   }
 
   /// Adds a leaf to the node and updates the cursor position.
   void addChildLeaf(JSONLeaf leaf) {
-    _addInsertChildToLists(leaf);
+    _children.insert(position + 1, leaf);
+    _childrenIDs.insert(position + 1, leaf.id);
 
     position += 1;
     setDirty();
@@ -60,7 +55,8 @@ class JSONArrayNode extends JSONNode {
 
   /// Adds a node to the node and updates the cursor position.
   void addChildNode(JSONNode node) {
-    _addInsertChildToLists(node);
+    _children.insert(position + 1, node);
+    _childrenIDs.insert(position + 1, node.id);
 
     position += 1;
     setDirty();

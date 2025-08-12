@@ -39,7 +39,7 @@ class JSONTrunk extends JSONNode {
       return "";
     } else {
       // If only one actual child (plus placeholder), return its string directly.
-      return (_children[1] as JSONElement).toJsonString();
+      return _children[1].toJsonString();
     }
   }
 

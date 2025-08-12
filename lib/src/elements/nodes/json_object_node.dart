@@ -1,7 +1,6 @@
 import 'package:json_builder_pro/src/constants/json_element_type.dart';
 import 'package:json_builder_pro/src/core/json_element.dart';
 import 'package:json_builder_pro/src/core/json_node.dart';
-import 'package:json_builder_pro/src/utiles/ids_generator.dart';
 
 /// A node that represents an object.
 class JSONObjectNode extends JSONNode {
@@ -28,7 +27,7 @@ class JSONObjectNode extends JSONNode {
       _members.forEach((key, value) {
         parts.add('"$key":${value.toJsonString()}');
       });
-      return "{" + parts.join(",") + "}";
+      return '{${parts.join(',')}}';
     }
   }
 
